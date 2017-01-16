@@ -116,7 +116,10 @@ public:
     /// How many leds does this controller manage?
     virtual int size() { return m_nLeds; }
 
-    /// Pointer to the CRGB array for this controller
+	// How many lanes does this controller manage?
+	virtual int lanes() { return 1; }
+
+	/// Pointer to the CRGB array for this controller
     CRGB* leds() { return m_Data; }
 
     /// Reference to the n'th item in the controller
@@ -319,7 +322,9 @@ struct PixelController {
 
         __attribute__((always_inline)) inline int size() { return mLen; }
 
-        // get the amount to advance the pointer by
+		__attribute__((always_inline)) inline int lanes() { return LANES; }
+
+		// get the amount to advance the pointer by
         __attribute__((always_inline)) inline int advanceBy() { return mAdvance; }
 
         // advance the data pointer forward, adjust position counter
@@ -398,6 +403,9 @@ protected:
 
 public:
   CPixelLEDController() : CLEDController() {}
+
+  int lanes() { return LANES; }
+
 };
 
 
